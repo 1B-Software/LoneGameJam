@@ -117,6 +117,9 @@ public class Game extends Canvas implements Runnable {
 		
 		screen.clear();
 		
+		int xOffset = 0;
+		int yOffset = 0;
+		
 		Graphics g = bs.getDrawGraphics();
 		
 //		screen.renderPixel(x, y);
