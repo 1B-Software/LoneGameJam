@@ -9,6 +9,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import robatortas.code.files.graphics.Screen;
+import robatortas.code.files.graphics.Sprite;
 
 public class Game extends Canvas implements Runnable {
 
@@ -26,11 +27,15 @@ public class Game extends Canvas implements Runnable {
 	
 	private Screen screen;
 	
+	private InputManager input = new InputManager();
+	
 	public Game() {
 		// INITIALIZE SCREEN FIRST!!!
 		screen = new Screen(width, height);
 		new Display(width, height, "UNTITLED GAME", frame, this);
 		frame = new JFrame();
+		
+		addKeyListener(input);
 	}
 	
 	// ALWAYS END THREAD WITH RUNNING VARIABLE!
@@ -81,8 +86,22 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 	
+	int x, y=0;
 	public void tick() {
-		System.out.println("Tick!");
+		input.tick();
+		
+		if(input.w) {
+			y--;
+		}
+		if(input.a) {
+			x--;
+		}
+		if(input.s) {
+			y++;
+		}
+		if(input.d) {
+			x++;
+		}
 	}
 	
 	public void render() {
@@ -96,9 +115,12 @@ public class Game extends Canvas implements Runnable {
 			pixels[i] = screen.pixels[i];
 		}
 		
+		screen.clear();
+		
 		Graphics g = bs.getDrawGraphics();
 		
-		screen.renderPixel(1, 1);
+//		screen.renderPixel(x, y);
+		screen.renderSprite(x, y, Sprite.player);
 		
 		g.drawImage(image, 0, 0, width, height, null);
 		
