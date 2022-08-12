@@ -1,9 +1,11 @@
 package robatortas.code.files.level;
 
+import robatortas.code.files.entity.mob.Mob;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
 import robatortas.code.files.level.tile.StoneTile;
 import robatortas.code.files.level.tile.VoidTile;
+import robatortas.code.files.level.tile.WoodTile;
 
 public class Tile {
 	
@@ -15,7 +17,7 @@ public class Tile {
 
 	public static Tile voidTile = new VoidTile(new Sprite(8, 0xfffff0ff), 0);
 	public static Tile stoneTile = new StoneTile(Sprite.stone, 1);
-	public static Tile woodTile = new StoneTile(Sprite.wood, 2);
+	public static Tile woodTile = new WoodTile(Sprite.wood, 2);
 	
 	public Tile(Sprite sprite, int id) {
 		this.sprite = sprite;
@@ -29,5 +31,9 @@ public class Tile {
 	public void render(int x, int y, Screen screen) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public boolean solid(Level level, int x, int y, Mob mob) {
+		return false;
 	}
 }
