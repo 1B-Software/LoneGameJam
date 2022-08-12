@@ -8,8 +8,9 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import robatortas.code.files.entity.mob.Player;
 import robatortas.code.files.graphics.Screen;
-import robatortas.code.files.graphics.Sprite;
+import robatortas.code.files.level.Level;
 
 public class Game extends Canvas implements Runnable {
 
@@ -26,10 +27,14 @@ public class Game extends Canvas implements Runnable {
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
 	private Screen screen;
+		
+	private Level level;
 	
-	private InputManager input = new InputManager();
+	private InputManager input = Level.input;
 	
 	public Game() {
+		level = Level.level;
+		
 		// INITIALIZE SCREEN FIRST!!!
 		screen = new Screen(width, height);
 		new Display(width, height, "UNTITLED GAME", frame, this);
@@ -90,6 +95,8 @@ public class Game extends Canvas implements Runnable {
 	public void tick() {
 		input.tick();
 		
+		level.tick();
+		
 		if(input.w) {
 			y--;
 		}
@@ -117,13 +124,14 @@ public class Game extends Canvas implements Runnable {
 		
 		screen.clear();
 		
-		int xOffset = 0;
-		int yOffset = 0;
+		int xScroll = 0;
+		int yScroll = 0;
 		
 		Graphics g = bs.getDrawGraphics();
 		
+		level.render(xScroll, yScroll, screen);
 //		screen.renderPixel(x, y);
-		screen.renderSprite(x, y, Sprite.player);
+//		screen.renderSprite(x, y, Sprite.player);
 		
 		g.drawImage(image, 0, 0, width, height, null);
 		

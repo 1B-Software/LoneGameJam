@@ -8,6 +8,8 @@ public class Mob extends Entity {
 	protected int health = 10;
 	protected int attackTime = 10;
 	
+	public boolean walking = false;
+	
 	protected int xa, ya;
 	public void move(int xa, int ya) {
 		this.xa = xa;

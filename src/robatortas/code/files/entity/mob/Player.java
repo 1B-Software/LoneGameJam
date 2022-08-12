@@ -14,24 +14,33 @@ public class Player extends Mob {
 		this.y = y;
 	}
 	
+	protected int xa = 0, ya = 0;
+	
+	protected int xv = 1, yv = 1;
+	
 	public void tick() {
 		super.tick();
 		
+		controls();
 		
+		if(xa != 0 || ya != 0) {
+			move(xa, ya);
+			walking = true;
+		} else walking = false;
 	}
 	
 	public void controls() {
 		if(input.w) {
-			System.out.println("w");
+			y-=ya;
 		}
 		if(input.s) {
-			System.out.println("s");
+			y+=ya;
 		}
 		if(input.a) {
-			System.out.println("a");
+			x-=xa;
 		}
 		if(input.d) {
-			System.out.println("d");
+			x+=xa;
 		}
 	}
 	

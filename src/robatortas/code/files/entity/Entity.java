@@ -6,11 +6,11 @@ import robatortas.code.files.level.Level;
 
 public class Entity {
 	
-	protected int x, y;
+	public int x, y;
 	protected Level level;
 	protected Sprite sprite;
 	
-	protected boolean remove;
+	public boolean removed;
 	
 	public Entity(int x, int y, Sprite sprite) {
 		this.sprite = sprite;
@@ -27,7 +27,7 @@ public class Entity {
 	}
 	
 	public boolean isRemoved() {
-		return remove;
+		return removed;
 	}
 	
 	public void remove() {
