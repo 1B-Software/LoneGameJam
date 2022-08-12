@@ -29,12 +29,6 @@ public class Mob extends Entity {
 		if(ya<0)dir=0;
 		
 		collision(xa, ya);
-		
-		for(int y = 0; y < Math.abs(ya); y+=2) {
-			if(!collision(0, fixAbs(ya))) {
-				this.y += fixAbs(ya);
-			}
-		}
 		for(int x = 0; x < Math.abs(xa); x++) {
 			if(!collision(fixAbs(xa), 0)) {
 				this.x += fixAbs(xa);
@@ -51,14 +45,20 @@ public class Mob extends Entity {
 	public void tick() {
 		tickTime++;
 //		gravity();
-		if(!collision(0, ya)) {
-			gravity();
+
+		collision(0, ya);
+//		for(int y = 0; y < Math.abs(ya); y++) {
+			if(!collision(0, fixAbs(ya))) {
+				this.y += fixAbs(ya);
+				move(0, 1);
+//			}
 		}
 	}
 	
 	public void gravity() {
-		if(tickTime % 3 == 0) {
+		if(tickTime % 2 == 0) {
 			y+=ya++;
+			move(0, ya);
 		}
 	}
 	
@@ -72,13 +72,12 @@ public class Mob extends Entity {
 		}
 	}
 	
-	int yt = 0;
 	//collision for tiles
 	public boolean collision(int xa, int ya) {
 		boolean solid = false;
 		for(int c = 0; c < 4; c++) {
 			int xt = ((x + xa) + c % 2 * 6 + 5) >> 3;
-			yt = ((y + ya) + c / 2 * 8 + 6) >> 3;
+			int yt = ((y + ya) + c / 2 * 8 + 6) >> 3;
 			if(level.getTile(xt, yt).solid(level, xt, yt, this)) {
 				solid = true;
 			}
