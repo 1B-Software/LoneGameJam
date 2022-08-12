@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import robatortas.code.files.entity.mob.Player;
 import robatortas.code.files.graphics.Screen;
+import robatortas.code.files.level.GameLevel;
 import robatortas.code.files.level.Level;
 
 public class Game extends Canvas implements Runnable {
@@ -37,7 +38,7 @@ public class Game extends Canvas implements Runnable {
 		
 		// INITIALIZE SCREEN FIRST!!!
 		screen = new Screen(width, height);
-		new Display(width, height, "UNTITLED GAME", frame, this);
+		new Display(width, height, "Cat Dungeon", frame, this);
 		frame = new JFrame();
 		
 		addKeyListener(input);
@@ -124,8 +125,10 @@ public class Game extends Canvas implements Runnable {
 		
 		screen.clear();
 		
-		int xScroll = 0;
-		int yScroll = 0;
+		int scale = 3;
+		
+		int xScroll = level.player.x - Screen.width/7-5;
+		int yScroll = level.player.y - Screen.height/7;
 		
 		Graphics g = bs.getDrawGraphics();
 		
@@ -133,7 +136,7 @@ public class Game extends Canvas implements Runnable {
 //		screen.renderPixel(x, y);
 //		screen.renderSprite(x, y, Sprite.player);
 		
-		g.drawImage(image, 0, 0, width, height, null);
+		g.drawImage(image, 0, 0, width*scale, height*scale, null);
 		
 		g.dispose();
 		bs.show();

@@ -6,12 +6,11 @@ import robatortas.code.files.level.Tile;
 
 public class VoidTile extends Tile {
 	
-	public VoidTile(Sprite sprite, byte id) {
+	public VoidTile(Sprite sprite, int id) {
 		super(sprite, id);
 	}
 	
 	public void render(int x, int y, Screen screen) {
-		screen.renderSprite(x << 4, y << 4, new Sprite(8, 0xffff00ff));
+		screen.renderTile(x << 3, y << 3, this);
 	}
-	
 }

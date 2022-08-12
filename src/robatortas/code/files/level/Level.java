@@ -5,6 +5,7 @@ import java.util.List;
 
 import robatortas.code.files.InputManager;
 import robatortas.code.files.entity.Entity;
+import robatortas.code.files.entity.mob.Player;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
 
@@ -13,11 +14,14 @@ public class Level {
 	public int width, height;
 	public int[] tiles;
 	public List<Entity>[] entitiesInTiles;
-	public static Level level = new GameLevel("/level.png");
 	
 	protected List<Entity> entities = new ArrayList<Entity>();
 	
+	public static Level level = new GameLevel("/level.png");
+	
 	public static InputManager input;
+	
+	public Player player;
 	
 	@SuppressWarnings("unchecked")
 	public Level(String path) {
@@ -33,8 +37,8 @@ public class Level {
 		//entity ticks
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
-			int xto = e.x >> 4;
-			int yto = e.y >> 4;
+			int xto = e.x >> 3;
+			int yto = e.y >> 3;
 			
 			e.tick();
 			
@@ -43,8 +47,8 @@ public class Level {
 				entities.remove(i--);
 				removeEntity(xto, yto, e);
 			} else {
-				int xt = e.x >> 4;
-				int yt = e.y >> 4;
+				int xt = e.x >> 3;
+				int yt = e.y >> 3;
 				
 				//if the x != x or y != or x = x or y = y
 				if (xto != xt || yto != yt || xto == xt || yto == yt) {
@@ -63,13 +67,13 @@ public class Level {
 		screen.setOffset(xScroll, yScroll);
 		int x0 = xScroll >> 3;
 		int y0 = yScroll >> 3;
-		int x1 = (xScroll - 8) >> 3;
-		int y1 = (yScroll - 8) >> 3;
+		int x1 = ((xScroll + Screen.width) - 8) >> 3;
+		int y1 = ((yScroll + Screen.height) - 8) >> 3;
 		
 		for(int y = y0; y < y1; y++) {
 			for(int x = x0; x < x1; x++) {
-				if(x < 0 || x >= width || y < 0 || y >= height) continue;
-				this.getTile(x, y).render(x, y, screen);
+				if (x < 0 || y < 0 || x >= width || y >= height) continue;
+				getTile(x, y).render(x, y, screen);
 			}
 		}
 		
@@ -81,13 +85,13 @@ public class Level {
 	public void add(Entity e) {
 		e.init(this);
 		e.removed = false;
-		insertEntity(e.x << 3, e.y << 3, e);
+		insertEntity(e.x, e.y, e);
 	}
 	
 	public void remove(Entity e) {
 		e.init(this);
 		e.removed = true;
-		insertEntity(e.x << 3, e.y << 3, e);
+		insertEntity(e.x, e.y , e);
 	}
 
 	public void insertEntity(int x, int y, Entity e) {
@@ -103,6 +107,7 @@ public class Level {
 	public Tile getTile(int x, int y) {
 		if(x < 0 || y < 0 || x >= width || y >= height) return  Tile.voidTile;
 		if(tiles[x + y * width] == Sprite.col_stone) return Tile.stoneTile;
+		if(tiles[x + y * width] == Sprite.col_wood) return Tile.woodTile;
 		return Tile.voidTile;
 	}
 }

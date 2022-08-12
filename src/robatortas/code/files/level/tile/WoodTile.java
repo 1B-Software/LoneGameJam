@@ -4,9 +4,9 @@ import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
 import robatortas.code.files.level.Tile;
 
-public class StoneTile extends Tile {
+public class WoodTile extends Tile {
 	
-	public StoneTile(Sprite sprite, int id) {
+	public WoodTile(Sprite sprite, int id) {
 		super(sprite, id);
 	}
 	

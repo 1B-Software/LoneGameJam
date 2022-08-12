@@ -35,8 +35,7 @@ public class Entity {
 	}
 	
 	public void move(int xa, int ya) {
-		x+=xa;
-		y+=ya;
+		
 	}
 	
 	public void render(Screen screen) {

@@ -2,6 +2,8 @@ package robatortas.code.files.graphics;
 
 import java.util.Random;
 
+import robatortas.code.files.level.Tile;
+
 public class Screen {
 
 	public static int width, height;
@@ -44,6 +46,22 @@ public class Screen {
 				if(xa < 0 || xa >= width) continue;
 				int color = ((xa >> 4) & tileSize-1) + ((ya >> 4) & tileSize-1) * tileSize;
 				pixels[x+y*width] = tiles[color];
+			}
+		}
+	}
+	
+	public void renderTile(int xp, int yp, Tile tile) {
+		xp -= xOffset;
+		yp -= yOffset;
+		
+		for(int y = 0; y < tile.sprite.size; y++) {
+			int ya = y + yp;
+			for(int x = 0; x < tile.sprite.size; x++) {
+				int xa = x + xp;
+				if(xa < -tile.sprite.size || xa >= width || ya < 0 || ya >= height) continue;
+				if(xa < 0) xa = 0;
+				int color = tile.sprite.pixels[x+y*tile.sprite.size];
+				if(color != 0xffff00ff) pixels[xa+ya*width] = color;
 			}
 		}
 	}

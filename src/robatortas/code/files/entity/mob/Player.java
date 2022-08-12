@@ -14,12 +14,15 @@ public class Player extends Mob {
 		this.y = y;
 	}
 	
-	protected int xa = 0, ya = 0;
+	protected int xa, ya;
 	
 	protected int xv = 1, yv = 1;
 	
 	public void tick() {
 		super.tick();
+		
+		xa = 0;
+		ya = 0;
 		
 		controls();
 		
@@ -30,18 +33,10 @@ public class Player extends Mob {
 	}
 	
 	public void controls() {
-		if(input.w) {
-			y-=ya;
-		}
-		if(input.s) {
-			y+=ya;
-		}
-		if(input.a) {
-			x-=xa;
-		}
-		if(input.d) {
-			x+=xa;
-		}
+		if(input.w) ya-=yv;
+		if(input.s) ya+=yv;
+		if(input.a) xa-=xv;
+		if(input.d) xa+=xv;
 	}
 	
 	public void render(Screen screen) {
