@@ -12,8 +12,10 @@ public class Mob extends Entity {
 	
 	public boolean walking = false;
 	
-	protected int xa, ya;
-	public void move(int xa, int ya) {
+	public double gravity = 0;
+	
+	protected double xa, ya;
+	public void move(double xa, double ya) {
 		this.xa = xa;
 		this.ya = ya;
 		
@@ -24,9 +26,9 @@ public class Mob extends Entity {
 		}
 		
 		if(xa>0)dir=1;
-		if(ya>0)dir=2;
+//		if(ya>0)dir=2;
 		if(xa<0)dir=3;
-		if(ya<0)dir=0;
+//		if(ya<0)dir=0;
 		
 		collision(xa, ya);
 		for(int x = 0; x < Math.abs(xa); x++) {
@@ -36,7 +38,7 @@ public class Mob extends Entity {
 		}
 	}
 	
-	private int fixAbs(int value) {
+	protected int fixAbs(double value) {
 		if(value < 0) return -1;
 		return 1;
 	}
@@ -44,21 +46,24 @@ public class Mob extends Entity {
 	int tickTime = 0;
 	public void tick() {
 		tickTime++;
-//		gravity();
 
-		collision(0, ya);
-//		for(int y = 0; y < Math.abs(ya); y++) {
-			if(!collision(0, fixAbs(ya))) {
-				this.y += fixAbs(ya);
-				move(0, 1);
-//			}
-		}
+		collision(0, gravity);
+		gravity();
 	}
 	
+	protected boolean onAir = false;
+	
 	public void gravity() {
-		if(tickTime % 2 == 0) {
-			y+=ya++;
-			move(0, ya);
+		System.out.println(gravity);
+		
+		if(!collision(0, fixAbs(gravity))) {
+			super.move(0, gravity);
+			onAir = true;
+		}
+		
+		if(onAir) {
+			gravity+=0.2;
+			if(gravity >=3) gravity = 1;
 		}
 	}
 	
@@ -73,12 +78,16 @@ public class Mob extends Entity {
 	}
 	
 	//collision for tiles
-	public boolean collision(int xa, int ya) {
+	public boolean collision(double xa, double ya) {
 		boolean solid = false;
 		for(int c = 0; c < 4; c++) {
-			int xt = ((x + xa) + c % 2 * 6 + 5) >> 3;
-			int yt = ((y + ya) + c / 2 * 8 + 6) >> 3;
-			if(level.getTile(xt, yt).solid(level, xt, yt, this)) {
+			double xt = ((x + xa) + c % 2 * 8 + 2) / 8;
+			double yt = ((y + ya) + c / 2 * 4 + 9) / 8;
+			int xx = (int) Math.floor(xt);
+			int yy = (int) Math.floor(yt);
+			if(xx % 2 == 0) xx = (int) Math.ceil(xt);
+			if(yy / 2 == 0) yy = (int) Math.ceil(yt);
+			if(level.getTile(xx, yy).solid(level, xx, yy, this)) {
 				solid = true;
 			}
 		}

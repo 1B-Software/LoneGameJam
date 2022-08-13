@@ -6,7 +6,7 @@ import robatortas.code.files.level.Level;
 
 public class Entity {
 	
-	public int x, y;
+	public double x, y;
 	protected Level level;
 	protected Sprite sprite;
 	
@@ -34,8 +34,9 @@ public class Entity {
 		
 	}
 	
-	public void move(int xa, int ya) {
-		
+	public void move(double xa, double ya) {
+		x+=xa;
+		y+=ya;
 	}
 	
 	public void render(Screen screen) {

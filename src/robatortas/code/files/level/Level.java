@@ -37,8 +37,8 @@ public class Level {
 		//entity ticks
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
-			int xto = e.x >> 3;
-			int yto = e.y >> 3;
+			int xto = (int)e.x >> 3;
+			int yto = (int)e.y >> 3;
 			
 			e.tick();
 			
@@ -47,8 +47,8 @@ public class Level {
 				entities.remove(i--);
 				removeEntity(xto, yto, e);
 			} else {
-				int xt = e.x >> 3;
-				int yt = e.y >> 3;
+				int xt = (int)e.x >> 3;
+				int yt = (int)e.y >> 3;
 				
 				//if the x != x or y != or x = x or y = y
 				if (xto != xt || yto != yt || xto == xt || yto == yt) {
@@ -85,13 +85,13 @@ public class Level {
 	public void add(Entity e) {
 		e.init(this);
 		e.removed = false;
-		insertEntity(e.x, e.y, e);
+		insertEntity((int)e.x, (int)e.y, e);
 	}
 	
 	public void remove(Entity e) {
 		e.init(this);
 		e.removed = true;
-		insertEntity(e.x, e.y , e);
+		insertEntity((int)e.x, (int)e.y , e);
 	}
 
 	public void insertEntity(int x, int y, Entity e) {

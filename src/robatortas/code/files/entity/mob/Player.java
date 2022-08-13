@@ -15,13 +15,15 @@ public class Player extends Mob {
 		this.y = y;
 	}
 	
-	protected int xa, ya;
+	protected double xa, ya;
 	
-	protected int xv = 1, yv = 1;
+	protected double xv = 1, yv = 1;
 	
 	private int tickTime = 0;
 	
 	private int animate = 0;
+	
+	private boolean jump = true;
 	
 	public void tick() {
 		super.tick();
@@ -33,9 +35,9 @@ public class Player extends Mob {
 		
 		xa = 0;
 		ya = 0;
-		
+		if(tickTime % 10 == 0) gravity+=tickTime&1;
 		controls();
-		
+				
 		if(xa != 0 || ya != 0) {
 			move(xa, ya);
 			walking = true;
@@ -43,27 +45,35 @@ public class Player extends Mob {
 	}
 	
 	public void controls() {
-		if(input.w) ya-=yv;
-		if(input.s) ya+=yv;
+		if(input.w) {
+			if(!jump) {
+				gravity -= 4 + fixAbs(gravity) * 0.5;
+				jump = true;
+			}
+		} else jump = false;
+//		if(input.s) gravity+=0.05;
 		if(input.a) xa-=xv;
 		if(input.d) xa+=xv;
 	}
 	
 	public void render(Screen screen) {
+		int x = (int)this.x;
+		int y = (int)this.y;
 		
 		if(walking) {
 			if(dir == 3) {
-				if (animate % 40 > 20 && animate % 40 <= 40) {
-					screen.renderSprite(x, y, playerWalk2, 1);
-				} else screen.renderSprite(x, y, playerWalk1, 1);
+				if (animate % 20 > 10 && animate % 20 <= 20) {
+					screen.renderSprite(x, y, playerWalk, 1);
+				} else screen.renderSprite(x, y, player, 1);
 			}
 			else {
-				if (animate % 40 > 20 && animate % 40 <= 40) {
-					screen.renderSprite(x, y, playerWalk2, 0);
-				} else screen.renderSprite(x, y, playerWalk1, 0);
+				if (animate % 20 > 10 && animate % 20 <= 20) {
+					screen.renderSprite(x, y, playerWalk, 0);
+				} else screen.renderSprite(x, y, player, 0);
 			}
 		} else {
-			screen.renderSprite(x, y, Sprite.player, 0);
+			if(dir == 1) screen.renderSprite(x, y, player, 0);
+			if(dir == 3) screen.renderSprite(x, y, player, 1);
 		}
 	}
 
@@ -71,6 +81,6 @@ public class Player extends Mob {
 		super.die();
 	}
 	
-	public static Sprite playerWalk1 = new Sprite(16, 1, 0, SpriteSheet.mainSheet);
-	public static Sprite playerWalk2 = new Sprite(16, 2, 0, SpriteSheet.mainSheet);
+	public static Sprite player = new Sprite(16, 1, 0, SpriteSheet.mainSheet);
+	public static Sprite playerWalk = new Sprite(16, 2, 0, SpriteSheet.mainSheet);
 }
