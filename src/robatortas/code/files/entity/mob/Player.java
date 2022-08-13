@@ -39,15 +39,15 @@ public class Player extends Mob {
 		controls();
 				
 		if(xa != 0 || ya != 0) {
-			move(xa, ya);
+			move(xa, 0);
 			walking = true;
 		} else walking = false;
 	}
 	
 	public void controls() {
-		if(input.w) {
+		if(input.w && onAir) {
 			if(!jump) {
-				gravity -= 4 + fixAbs(gravity) * 0.5;
+				gravity -= 4 + fixAbs(xa) * 0.5;
 				jump = true;
 			}
 		} else jump = false;

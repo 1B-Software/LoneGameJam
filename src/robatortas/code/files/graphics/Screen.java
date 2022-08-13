@@ -6,7 +6,7 @@ import robatortas.code.files.level.Tile;
 
 public class Screen {
 
-	public static int width, height;
+	public int width, height;
 	
 	private int xOffset, yOffset;
 	
@@ -17,9 +17,8 @@ public class Screen {
 	private Random random = new Random();
 	
 	public Screen(int width, int height) {
-		Screen.width = width;
-		Screen.height = height;
-		
+		this.width = width;
+		this.height = height;
 		pixels = new int[width*height];
 		map();
 	}

@@ -17,7 +17,9 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int width = 720, height = 520;
+	// I know finals should be capitalized but I don't give a shit!
+	public static final int width = 256, height = 192;
+	private static final int scale = 3;
 	
 	private Thread thread;
 	private boolean running = false;
@@ -38,7 +40,7 @@ public class Game extends Canvas implements Runnable {
 		
 		// INITIALIZE SCREEN FIRST!!!
 		screen = new Screen(width, height);
-		new Display(width, height, "Cat Dungeon", frame, this);
+		new Display(width*scale, height*scale, "Cat Dungeon", frame, this);
 		frame = new JFrame();
 		
 		addKeyListener(input);
@@ -125,10 +127,8 @@ public class Game extends Canvas implements Runnable {
 		
 		screen.clear();
 		
-		int scale = 3;
-		
-		int xScroll = (int)level.player.x - Screen.width/7-5;
-		int yScroll = (int)level.player.y - Screen.height/7;
+		int xScroll = (int)level.player.x - (width-32)/2;
+		int yScroll = (int)level.player.y - (height-32)/2;
 		
 		Graphics g = bs.getDrawGraphics();
 		
