@@ -5,7 +5,6 @@ import robatortas.code.files.entity.Gore;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
 import robatortas.code.files.graphics.SpriteSheet;
-import robatortas.code.files.level.Tile;
 
 public class Cat extends Mob {
 	
@@ -50,7 +49,7 @@ public class Cat extends Mob {
 				level.add(gore = new Gore(x, y, new Sprite(8, 0, 9, SpriteSheet.mainSheet)));
 				gore.dropBlood = true;
 			}
-			for(int i = 0; i < 10; i++) level.add(blood = new Blood(x, y));
+			for(int i = 0; i < 500; i++) level.add(blood = new Blood(x, y));
 			level.add(gore = new Gore(x, y, new Sprite(8, 4, 2, SpriteSheet.mainSheet)));
 			gore.dropBlood = false;
 			gore.setLife(120*2);

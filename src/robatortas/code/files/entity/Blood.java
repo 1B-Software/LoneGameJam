@@ -32,7 +32,7 @@ public class Blood extends Entity{
 	}
 	
 	public void render(Screen screen) {
-		screen.renderPixel(x, (y + 13) - (int) physics.calculations.z0, 2, 2, 0xffff0000);
+		screen.renderPixel(x, (y + 13) - (int) physics.calculations.z0, 1, 1, 0xffff0000);
 	}
 	
 	public static Sprite goreSprite = new Sprite(8, 0, 9, SpriteSheet.mainSheet);

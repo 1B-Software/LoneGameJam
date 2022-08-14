@@ -24,7 +24,7 @@ public class Gore extends Entity{
 	private Random random = new Random();
 	
 	int tickTime = 0;
-	int life = random.nextInt(60*3)-30*3;
+	int life = random.nextInt(60*10)-30*10;
 	
 	private Blood blood;
 	
@@ -42,9 +42,8 @@ public class Gore extends Entity{
 		
 		if(dropBlood) {
 			if(tickTime % 2 == 0) {
-				level.add(blood = new Blood(x, y));
-				blood.physics.calculations.x1 = 0.2;
-				blood.physics.calculations.frictionY = 0.0;
+				level.add(blood = new Blood(x+4, y+2));
+				blood.physics.calculations.x1 = random.nextGaussian() * 0.02;
 				blood.physics.calculations.z1 = 1.0;
 				
 				bloodChance = random.nextInt(2) - 3;
