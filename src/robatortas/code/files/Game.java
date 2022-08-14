@@ -21,6 +21,8 @@ public class Game extends Canvas implements Runnable {
 	public static final int width = 256, height = 192;
 	private static final int scale = 3;
 	
+	private static final String title = "Cat Dungeon";
+	
 	private Thread thread;
 	private boolean running = false;
 	
@@ -33,6 +35,8 @@ public class Game extends Canvas implements Runnable {
 		
 	private Level level;
 	
+	private Display display;
+	
 	private InputManager input = Level.input;
 	
 	public Game() {
@@ -40,7 +44,7 @@ public class Game extends Canvas implements Runnable {
 		
 		// INITIALIZE SCREEN FIRST!!!
 		screen = new Screen(width, height);
-		new Display(width*scale, height*scale, "Cat Dungeon", frame, this);
+		display = new Display(width*scale, height*scale, title, frame, this);
 		frame = new JFrame();
 		
 		addKeyListener(input);
@@ -88,30 +92,16 @@ public class Game extends Canvas implements Runnable {
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				System.out.println("TPS: " + ticks + "  ||  " + "FPS: " + frames);
+				display.frame.setTitle(title + "   |   " + "FPS: " + frames);
 				frames = 0;
 				ticks = 0;
 			}
 		}
 	}
 	
-	int x, y=0;
 	public void tick() {
 		input.tick();
-		
 		level.tick();
-		
-		if(input.w) {
-			y--;
-		}
-		if(input.a) {
-			x--;
-		}
-		if(input.s) {
-			y++;
-		}
-		if(input.d) {
-			x++;
-		}
 	}
 	
 	public void render() {

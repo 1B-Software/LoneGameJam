@@ -30,10 +30,13 @@ public class Sprite {
 	}
 	
 	public static Sprite player = new Sprite(16, 0, 0, SpriteSheet.mainSheet);
-	public static Sprite stone = new Sprite(8, 0, 2, SpriteSheet.mainSheet);
-	public static Sprite wood = new Sprite(8, 1, 2, SpriteSheet.mainSheet);
+	public static Sprite stone = new Sprite(8, 0, 8, SpriteSheet.mainSheet);
+	public static Sprite stoneBlood = new Sprite(8, 2, 8, SpriteSheet.mainSheet);
+	public static Sprite stoneBlood2 = new Sprite(8, 3, 8, SpriteSheet.mainSheet);
+	public static Sprite wood = new Sprite(8, 1, 8, SpriteSheet.mainSheet);
 	
 	public static int col_stone = 0xff808080;
+	public static int col_bloodStone = 0xffFF6868;
 	public static int col_wood = 0xff7F4F2F;
 	
 	public void load() {

@@ -2,10 +2,13 @@ package robatortas.code.files.level;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import robatortas.code.files.InputManager;
+import robatortas.code.files.entity.Entity;
+import robatortas.code.files.entity.mob.Cat;
 import robatortas.code.files.entity.mob.Player;
 
 public class GameLevel extends Level{
@@ -25,6 +28,12 @@ public class GameLevel extends Level{
 			e.printStackTrace();
 		}
 		
-		add(player = new Player(3 << 3, 2 << 3 , input = new InputManager()));
+		entitiesInTiles = new ArrayList[width*height];
+		for(int i = 0; i < width*height; i++) {
+			entitiesInTiles[i] = new ArrayList<Entity>();
+		}
+		
+		add(player = new Player(3 << 3, 4 << 3 , input = new InputManager()));
+//		add(new Cat(4<<3, 0<<3));
 	}
 }

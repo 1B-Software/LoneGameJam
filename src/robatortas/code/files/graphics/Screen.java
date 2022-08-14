@@ -2,6 +2,7 @@ package robatortas.code.files.graphics;
 
 import java.util.Random;
 
+import robatortas.code.files.entity.mob.Mob;
 import robatortas.code.files.level.Tile;
 
 public class Screen {
@@ -36,15 +37,17 @@ public class Screen {
 		}
 	}
 	
-	public void renderPixel(int xp, int yp) {
-		for(int y = 0; y < height; y++) {
+	public void renderPixel(int xp, int yp, int w, int h, int color) {
+		xp -= xOffset;
+		yp -= yOffset;
+		
+		for(int y = 0; y < h; y++) {
 			int ya = y + yp;
-			if(ya < 0 || ya >= height) continue;
-			for(int x = 0; x < width; x++) {
+			for(int x = 0; x < w; x++) {
 				int xa = x + xp;
-				if(xa < 0 || xa >= width) continue;
-				int color = ((xa >> 4) & tileSize-1) + ((ya >> 4) & tileSize-1) * tileSize;
-				pixels[x+y*width] = tiles[color];
+				if(xa < -w || xa >= width || ya < 0 || ya >= height) continue;
+				if(xa < 0) xa = 0;
+				pixels[xa+ya*width] = color;
 			}
 		}
 	}
@@ -80,6 +83,26 @@ public class Screen {
 				if(xa < -sprite.size || xa >= width || ya < 0 || ya >= height) continue;
 				if(xa < 0) xa = 0;
 				int color = sprite.pixels[xs+ys*sprite.size];
+				if(color != 0xffff00ff) pixels[xa+ya*width] = color;
+			}
+		}
+	}
+	
+	public void renderMob(int xp, int yp, Mob mob, int flip) {
+		xp -= xOffset;
+		yp -= yOffset;
+		
+		for(int y = 0; y < mob.sprite.size; y++) {
+			int ya = y + yp;
+			int ys = y;
+			if(flip == 2 || flip == 3) ys = (mob.sprite.size-1) - y;
+			for(int x = 0; x < mob.sprite.size; x++) {
+				int xa = x + xp;
+				int xs = x;
+				if(flip == 1 || flip == 3) xs = (mob.sprite.size-1) - x;
+				if(xa < -mob.sprite.size || xa >= width || ya < 0 || ya >= height) continue;
+				if(xa < 0) xa = 0;
+				int color = mob.sprite.pixels[xs+ys*mob.sprite.size];
 				if(color != 0xffff00ff) pixels[xa+ya*width] = color;
 			}
 		}

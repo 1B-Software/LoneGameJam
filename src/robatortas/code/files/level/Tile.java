@@ -18,6 +18,8 @@ public class Tile {
 	public static Tile voidTile = new VoidTile(new Sprite(8, 0xfffff0ff), 0);
 	public static Tile stoneTile = new StoneTile(Sprite.stone, 1);
 	public static Tile woodTile = new WoodTile(Sprite.wood, 2);
+	public static Tile stoneBloodTile = new StoneBloodTile(Sprite.stoneBlood, 3);
+	public static Tile stoneBloodTile2 = new StoneBloodTile(Sprite.stoneBlood2, 4);
 	
 	public Tile(Sprite sprite, int id) {
 		this.sprite = sprite;

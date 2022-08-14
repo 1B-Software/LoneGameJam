@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import robatortas.code.files.InputManager;
+import robatortas.code.files.entity.Blood;
 import robatortas.code.files.entity.Entity;
 import robatortas.code.files.entity.mob.Player;
 import robatortas.code.files.graphics.Screen;
@@ -26,11 +27,6 @@ public class Level {
 	@SuppressWarnings("unchecked")
 	public Level(String path) {
 		loadLevel(path);
-
-		entitiesInTiles = new ArrayList[width*height];
-		for(int i = 0; i < width*height; i++) {
-			entitiesInTiles[i] = new ArrayList<Entity>();
-		}
 	}
 	
 	public void tick() {
@@ -77,37 +73,47 @@ public class Level {
 			}
 		}
 		
+		for(int i = 0; i < entities.size(); i++) if(entities.get(i) instanceof Blood) entities.get(i).render(screen);
+		
 		for(int i = 0; i < entities.size(); i++) {
-			entities.get(i).render(screen);
+			if(!(entities.get(i) instanceof Blood))entities.get(i).render(screen);
 		}
 	}
 	
 	public void add(Entity e) {
 		e.init(this);
 		e.removed = false;
+		entities.add(e);
 		insertEntity((int)e.x, (int)e.y, e);
 	}
 	
 	public void remove(Entity e) {
 		e.init(this);
 		e.removed = true;
+		entities.remove(e);
 		insertEntity((int)e.x, (int)e.y , e);
 	}
 
 	public void insertEntity(int x, int y, Entity e) {
-		if(x < 0 || x > width || y < 0 || y > height) return;
-		entities.add(e);
+		if(x < 0 || x >= width || y < 0 || y >= height) return;
+		entitiesInTiles[x+y*width].add(e);
+	}
+	
+	public void insertTile(int x, int y, int color) {
+		if(x < 0 || y < 0 || x >= width || y >= height) return;
+		tiles[x+y*width] = color;
 	}
 	
 	public void removeEntity(int x, int y, Entity e) {
-		if(x < 0 || x > width || y < 0 || y > height) return;
-		entities.remove(e);
+		if(x < 0 || x >= width || y < 0 || y >= height) return;
+		entitiesInTiles[x+y*width].remove(e);
 	}
 	
 	public Tile getTile(int x, int y) {
 		if(x < 0 || y < 0 || x >= width || y >= height) return  Tile.voidTile;
 		if(tiles[x + y * width] == Sprite.col_stone) return Tile.stoneTile;
 		if(tiles[x + y * width] == Sprite.col_wood) return Tile.woodTile;
+		if(tiles[x + y * width] == Sprite.col_bloodStone) return Tile.stoneBloodTile;
 		return Tile.voidTile;
 	}
 }

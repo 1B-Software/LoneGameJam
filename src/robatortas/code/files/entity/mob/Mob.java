@@ -14,6 +14,8 @@ public class Mob extends Entity {
 	
 	public double gravity = 0;
 	
+	protected int animate = 0;
+	
 	protected double xa, ya;
 	public void move(double xa, double ya) {
 		this.xa = xa;
@@ -27,14 +29,25 @@ public class Mob extends Entity {
 		
 		if(xa>0)dir=1;
 		if(xa<0)dir=3;
-		
-		if(!collision(xa, 0)) {
-			this.x += xa;
+//		
+//		if(!collision(xa, 0)) {
+//			this.x += xa;
+//		}
+		for (int x = 0; x < Math.abs(xa); x++) {
+			if (!collision(abs(xa), ya)) {
+				this.x += abs(xa);
+			}
+		}
+
+		for (int y = 0; y < Math.abs(ya); y++) {
+			if (!collision(xa, abs(ya))) {
+				this.y += abs(ya);
+			}
 		}
 	}
 	
-	protected int fixAbs(double value) {
-		if(value < 0) return -1;
+	private int abs(double value) {
+		if (value < 0) return -1;
 		return 1;
 	}
 	
@@ -53,12 +66,11 @@ public class Mob extends Entity {
 		if(!collision(0, gravity)) {
 			super.move(0, gravity);
 			onAir = true;
-		}
+		} else onAir = false;
 		
 		if(onAir) {
-			gravity+=0.2;
-			if(gravity >=3) gravity = 1;
-		} else gravity =0.2;
+			gravity+=0.3;
+		} else gravity = 0.5;
 	}
 	
 	public void render(Screen screen) {
@@ -77,11 +89,9 @@ public class Mob extends Entity {
 		for(int c = 0; c < 4; c++) {
 			int xt = (((int)x + (int)xa) + (c % 2 + 1) * 5) / 8;
 			double yt = ((y + ya) + (c / 2 + 2) * 2) / 8;
-			int yy = (int) Math.ceil(yt);
-			if(yy / 2 == 0) yy = (int) Math.floor(yt);
-			if(level.getTile(xt, yy).solid(level, xt, yy, this)) {
-				solid = true;
-			}
+			int iy = (int) Math.ceil(yt);
+			if (c / 2 == 0) iy = (int) Math.floor(yt);
+			if (level.getTile(xt, iy).solid(level, xt, iy, this)) solid = true;
 		}
 		return solid;
 	}

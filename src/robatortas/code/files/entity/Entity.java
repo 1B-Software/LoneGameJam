@@ -6,9 +6,9 @@ import robatortas.code.files.level.Level;
 
 public class Entity {
 	
-	public double x, y;
+	public int x, y;
 	protected Level level;
-	protected Sprite sprite;
+	public Sprite sprite;
 	
 	public boolean removed;
 	
@@ -31,7 +31,7 @@ public class Entity {
 	}
 	
 	public void remove() {
-		
+		this.removed = true;
 	}
 	
 	public void move(double xa, double ya) {
