@@ -6,6 +6,8 @@ import java.util.List;
 import robatortas.code.files.InputManager;
 import robatortas.code.files.entity.Blood;
 import robatortas.code.files.entity.Entity;
+import robatortas.code.files.entity.mob.Cat;
+import robatortas.code.files.entity.mob.Mouse;
 import robatortas.code.files.entity.mob.Player;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
@@ -24,7 +26,6 @@ public class Level {
 	
 	public Player player;
 	
-	@SuppressWarnings("unchecked")
 	public Level(String path) {
 		loadLevel(path);
 	}
@@ -107,6 +108,28 @@ public class Level {
 	public void removeEntity(int x, int y, Entity e) {
 		if(x < 0 || x >= width || y < 0 || y >= height) return;
 		entitiesInTiles[x+y*width].remove(e);
+	}
+	
+	public List<Entity> getEntity(int x0, int y0, int x1, int y1) {
+		List<Entity> result = new ArrayList<Entity>();
+		
+		int xt0 = (x0 >> 3) - 1;
+		int yt0 = (y0 >> 3) - 1;
+		int xt1 = (x1 >> 3) + 1;
+		int yt1 = (y1 >> 3) + 1;
+		
+		for(int y = yt0; y < yt1; y++) {
+			for(int x = xt0; x < xt1; x++) {
+				if(x < 0 || x >= width || y < 0 || y >= height) continue;
+				List<Entity> entities = entitiesInTiles[x + y * this.width];
+				for(int i = 0; i < entities.size(); i++) {
+					Entity e = entities.get(i);
+					if(e.intersects(x0, y0, x1, y1)) result.add(e);
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	public Tile getTile(int x, int y) {

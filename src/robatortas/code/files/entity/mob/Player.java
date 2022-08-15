@@ -118,7 +118,6 @@ public class Player extends Mob {
 	
 	// SUCH A MESS!!!!!! (I DON'T HAVE MUCH TIME LEFT TO FIX IT!!!!)
 	public void render(Screen screen) {
-		
 		oneToggle = input.toggle(input.one, oneToggle);
 		if(oneToggle) armed = true;
 		else armed = false;

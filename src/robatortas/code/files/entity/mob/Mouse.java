@@ -42,7 +42,7 @@ public class Mouse extends Mob {
 			gore.dropBlood = true;
 		}
 		for(int i = 0; i < 500; i++) level.add(new Blood(x, y));
-		level.add(gore = new Gore(x, y, new Sprite(8, 4, 3, SpriteSheet.mainSheet)));
+		level.add(gore = new Gore(x, y, new Sprite(8, 4, 4, SpriteSheet.mainSheet)));
 		gore.dropBlood = false;
 		gore.setLife(120*2);
 		level.add(gore = new Gore(x, y, new Sprite(8, 5, 2, SpriteSheet.mainSheet)));

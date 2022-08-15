@@ -36,6 +36,6 @@ public class GameLevel extends Level{
 		}
 		
 		add(player = new Player(3 << 3, 4 << 3 , input = new InputManager()));
-		add(new Mouse(4<<3, 0<<3));
+		add(new Mouse(6<<3, 0<<3));
 	}
 }

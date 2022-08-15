@@ -10,6 +10,8 @@ public class Entity {
 	protected Level level;
 	public Sprite sprite;
 	
+	public boolean die = false;
+	
 	public boolean removed;
 	
 	public Entity(int x, int y, Sprite sprite) {
@@ -37,6 +39,12 @@ public class Entity {
 	public void move(double xa, double ya) {
 		x+=xa;
 		y+=ya;
+	}
+	
+	protected int xp = 8;
+	protected int yp = 8;
+	public boolean intersects(int x0, int y0, int x1, int y1) {
+		return (x + xp < x0 || y + yp < y0 || x - xp > x1 || y - yp > y1);
 	}
 	
 	public void render(Screen screen) {
