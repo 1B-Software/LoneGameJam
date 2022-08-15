@@ -45,7 +45,7 @@ public class Cat extends Mob {
 	
 	private Gore gore;
 	public void die() {
-		if(!onAir) {
+		if(!onAir || collision(xa, 0)) {
 			for(int i = 0; i < 10; i++) {
 				level.add(gore = new Gore(x, y, new Sprite(8, 0, 9, SpriteSheet.mainSheet)));
 				gore.dropBlood = true;

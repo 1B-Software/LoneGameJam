@@ -33,6 +33,8 @@ public class Player extends Mob {
 	
 	private int catTime = 0;
 	
+	private int xKnockBack, yKnockBack;
+	
 	public void tick() {
 		super.tick();
 		
@@ -48,9 +50,24 @@ public class Player extends Mob {
 		if(tickTime % 10 == 0) gravity+=tickTime&1;
 		controls();
 		
+		if(xKnockBack > 0) {
+			move(1, 0);
+			dir = 3;
+			xKnockBack--;
+		}
+		if(xKnockBack < 0) {
+			move(-1, 0);
+			dir = 1;
+			xKnockBack++;
+		}
 		if(cat != null) {
+			
 			if(cat.tickTime < 1) {
+				// knockback, may use in the future
+//				if(dir == 1) xKnockBack = -10;
+//				if (dir == 3) xKnockBack = 10;
 				if(dir == 1) {
+					dir = 1;
 					cat.xv = 3;
 				} else if(dir == 3) cat.xv -= 3;
 			}
