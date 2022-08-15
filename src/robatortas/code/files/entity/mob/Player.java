@@ -29,13 +29,10 @@ public class Player extends Mob {
 	
 	private boolean jump = true;
 	private boolean shoot = true;
-	private boolean space = true;
 	
 	private int shootingDirX = 0;
 	
-	private int catTime = 0;
-	
-	private int xKnockBack, yKnockBack;
+	private int xKnockBack;
 	
 	public void tick() {
 		super.tick();
