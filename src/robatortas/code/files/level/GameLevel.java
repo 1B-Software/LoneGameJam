@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import robatortas.code.files.InputManager;
 import robatortas.code.files.entity.Entity;
 import robatortas.code.files.entity.mob.Cat;
+import robatortas.code.files.entity.mob.Mouse;
 import robatortas.code.files.entity.mob.Player;
 
 public class GameLevel extends Level{
@@ -34,6 +35,6 @@ public class GameLevel extends Level{
 		}
 		
 		add(player = new Player(3 << 3, 4 << 3 , input = new InputManager()));
-//		add(new Cat(4<<3, 0<<3));
+		add(new Mouse(4<<3, 0<<3));
 	}
 }

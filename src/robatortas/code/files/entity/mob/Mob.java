@@ -34,9 +34,9 @@ public class Mob extends Entity {
 //			this.x += xa;
 //		}
 		for (int x = 0; x < Math.abs(xa); x++) {
-			if (!collision(abs(xa), ya)) {
-				this.x += abs(xa);
-			}
+		if (!collision(abs(xa), ya)) {
+			this.x += abs(xa);
+		}
 		}
 
 		for (int y = 0; y < Math.abs(ya); y++) {
@@ -61,8 +61,6 @@ public class Mob extends Entity {
 	protected boolean onAir = false;
 	
 	public void gravity() {
-//		System.out.println(gravity);
-		
 		if(!collision(0, gravity)) {
 			super.move(0, gravity);
 			onAir = true;
@@ -70,6 +68,7 @@ public class Mob extends Entity {
 		
 		if(onAir) {
 			gravity+=0.3;
+			if(gravity >= 7) gravity = 7;
 		} else gravity = 0.5;
 	}
 	

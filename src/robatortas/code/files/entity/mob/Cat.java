@@ -12,16 +12,24 @@ public class Cat extends Mob {
 		this.x = x;
 		this.y = y;
 		sprite = cat;
-		shoot();
 	}
 	
 	public double xa, ya;
 	public double xv, yv;
 	
-	public void tick(){
+	int tickTime = 0;
+	
+	public void tick() {
 		super.tick();
+		
+		tickTime++;
+		
 		if(animate < 10000) animate++; 
 		else animate = 0;
+		
+		xa = xv;
+		ya += yv;
+		
 		if(xa!=0||ya!=0) {
 			move(xa,ya);
 		}
@@ -29,27 +37,20 @@ public class Cat extends Mob {
 		die();
 	}
 	
-	public void shoot() {
-		
-	}
-	
 	public void render(Screen screen) {
-		int x = (int)this.x;
-		int y = (int)this.y;
 		
 		sprite = cat;
 		screen.renderMob(x, y, this, 0);
 	}
 	
 	private Gore gore;
-	private Blood blood;
 	public void die() {
 		if(!onAir) {
 			for(int i = 0; i < 10; i++) {
 				level.add(gore = new Gore(x, y, new Sprite(8, 0, 9, SpriteSheet.mainSheet)));
 				gore.dropBlood = true;
 			}
-			for(int i = 0; i < 500; i++) level.add(blood = new Blood(x, y));
+			for(int i = 0; i < 500; i++) level.add(new Blood(x, y));
 			level.add(gore = new Gore(x, y, new Sprite(8, 4, 2, SpriteSheet.mainSheet)));
 			gore.dropBlood = false;
 			gore.setLife(120*2);

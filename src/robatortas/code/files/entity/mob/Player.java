@@ -27,6 +27,11 @@ public class Player extends Mob {
 	
 	private boolean jump = true;
 	private boolean shoot = true;
+	private boolean space = true;
+	
+	private int shootingDirX = 0;
+	
+	private int catTime = 0;
 	
 	public void tick() {
 		super.tick();
@@ -42,9 +47,13 @@ public class Player extends Mob {
 		// Gravity
 		if(tickTime % 10 == 0) gravity+=tickTime&1;
 		controls();
-
-		if(cat!=null) {
-			if(cat.onAir) cat.xa += 0.01;
+		
+		if(cat != null) {
+			if(cat.tickTime < 1) {
+				if(dir == 1) {
+					cat.xv = 3;
+				} else if(dir == 3) cat.xv -= 3;
+			}
 		}
 		
 		if(xa != 0 || ya != 0) {
@@ -75,9 +84,13 @@ public class Player extends Mob {
 	
 	private Cat cat;
 	public void shoot() {
-		level.add(cat = new Cat(x, y));
+		level.add(cat = new Cat(x+shootingDirX, y));
 		if(input.up) {
 			cat.gravity -= 4 + xa * 0.5;
+		} else if(input.down) {
+			cat.gravity += 2 + xa * 0.5;
+		} else {
+			cat.gravity -= 2 + xa * 0.5;
 		}
 	}
 	
