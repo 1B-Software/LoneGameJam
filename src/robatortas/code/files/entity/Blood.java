@@ -28,7 +28,7 @@ public class Blood extends Entity{
 		if(tickTime >= life) remove();
 		
 		physics.calculations.physics();
-		move((int) physics.calculations.x0 - x, physics.calculations.y0 - y);
+		move((int) physics.calculations.x0 - x, physics.calculations.y0 - y); 
 	}
 	
 	public void render(Screen screen) {

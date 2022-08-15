@@ -2,6 +2,8 @@ package robatortas.code.files.entity.mob;
 
 import robatortas.code.files.entity.Entity;
 import robatortas.code.files.graphics.Screen;
+import robatortas.code.files.graphics.Sprite;
+import robatortas.code.files.level.Tile;
 
 public class Mob extends Entity {
 	
@@ -55,6 +57,11 @@ public class Mob extends Entity {
 	public void tick() {
 		tickTime++;
 		
+		if(level.getTile(x+6 >> 3, y+16 >> 3) == Tile.spikeTile) {
+			die();
+			level.insertTile(x+6 >> 3, y+16 >> 3, Sprite.col_spikeBlood);
+		}
+		
 		gravity();
 	}
 	
@@ -77,9 +84,7 @@ public class Mob extends Entity {
 	}
 	
 	public void die() {
-		if(health <= 0) {
-			remove();
-		}
+		remove();
 	}
 	
 	//collision for tiles
@@ -88,9 +93,9 @@ public class Mob extends Entity {
 		for(int c = 0; c < 4; c++) {
 			int xt = (((int)x + (int)xa) + (c % 2 + 1) * 5) / 8;
 			double yt = ((y + ya) + (c / 2 + 2) * 2) / 8;
-			int iy = (int) Math.ceil(yt);
-			if (c / 2 == 0) iy = (int) Math.floor(yt);
-			if (level.getTile(xt, iy).solid(level, xt, iy, this)) solid = true;
+			int yy = (int) Math.ceil(yt);
+			if (c / 2 == 0) yy = (int) Math.floor(yt);
+			if (level.getTile(xt, yy).solid(level, xt, yy, this)) solid = true;
 		}
 		return solid;
 	}

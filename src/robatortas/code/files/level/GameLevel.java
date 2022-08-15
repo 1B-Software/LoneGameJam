@@ -18,6 +18,7 @@ public class GameLevel extends Level{
 		super(path);
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected void loadLevel(String path) {
 		try {
 			BufferedImage image = ImageIO.read(GameLevel.class.getResource(path));

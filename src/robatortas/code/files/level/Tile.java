@@ -3,6 +3,8 @@ package robatortas.code.files.level;
 import robatortas.code.files.entity.mob.Mob;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
+import robatortas.code.files.level.tile.SpikeBloodTile;
+import robatortas.code.files.level.tile.SpikeTile;
 import robatortas.code.files.level.tile.StoneTile;
 import robatortas.code.files.level.tile.VoidTile;
 import robatortas.code.files.level.tile.WoodTile;
@@ -18,8 +20,8 @@ public class Tile {
 	public static Tile voidTile = new VoidTile(new Sprite(8, 0xfffff0ff), 0);
 	public static Tile stoneTile = new StoneTile(Sprite.stone, 1);
 	public static Tile woodTile = new WoodTile(Sprite.wood, 2);
-	public static Tile stoneBloodTile = new StoneBloodTile(Sprite.stoneBlood, 3);
-	public static Tile stoneBloodTile2 = new StoneBloodTile(Sprite.stoneBlood2, 4);
+	public static Tile spikeTile = new SpikeTile(Sprite.spike, 3);
+	public static Tile spikeBloodTile = new SpikeBloodTile(Sprite.spikeBlood, 4);
 	
 	public Tile(Sprite sprite, int id) {
 		this.sprite = sprite;

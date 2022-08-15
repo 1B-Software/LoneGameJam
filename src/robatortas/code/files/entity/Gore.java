@@ -14,6 +14,8 @@ public class Gore extends Entity{
 	
 	private Sprite sprite;
 	
+	public int color;
+	
 	public Gore(int x, int y, Sprite sprite) {
 		this.x = x;
 		this.y = y;
@@ -54,8 +56,13 @@ public class Gore extends Entity{
 		move((int) physics.calculations.x0 - x, physics.calculations.y0 - y);
 	}
 	
+	public void setColor(int color) {
+		this.color = color;
+	}
+	
 	public void render(Screen screen) {
-		screen.renderSprite(x, (y + 13) - (int) physics.calculations.z0, sprite, 0);
+		if(sprite!=null)screen.renderSprite(x, (y + 13) - (int) physics.calculations.z0, sprite, 0);
+		else screen.renderPixel(x, (y + 13) - (int) physics.calculations.z0, 3, 2, color);
 	}
 	
 	public static Sprite goreSprite = new Sprite(8, 0, 9, SpriteSheet.mainSheet);

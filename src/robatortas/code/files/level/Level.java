@@ -113,7 +113,8 @@ public class Level {
 		if(x < 0 || y < 0 || x >= width || y >= height) return  Tile.voidTile;
 		if(tiles[x + y * width] == Sprite.col_stone) return Tile.stoneTile;
 		if(tiles[x + y * width] == Sprite.col_wood) return Tile.woodTile;
-		if(tiles[x + y * width] == Sprite.col_bloodStone) return Tile.stoneBloodTile;
+		if(tiles[x + y * width] == Sprite.col_spike) return Tile.spikeTile;
+		if(tiles[x + y * width] == Sprite.col_spikeBlood) return Tile.spikeBloodTile;
 		return Tile.voidTile;
 	}
 }
