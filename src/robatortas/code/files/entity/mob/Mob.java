@@ -1,5 +1,7 @@
 package robatortas.code.files.entity.mob;
 
+import java.util.Random;
+
 import robatortas.code.files.entity.Entity;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
@@ -17,6 +19,8 @@ public class Mob extends Entity {
 	public double gravity = 0;
 	
 	protected int animate = 0;
+	
+	protected Random random = new Random();
 	
 	protected double xa, ya;
 	public void move(double xa, double ya) {
@@ -48,7 +52,7 @@ public class Mob extends Entity {
 		}
 	}
 	
-	private int abs(double value) {
+	protected int abs(double value) {
 		if (value < 0) return -1;
 		return 1;
 	}

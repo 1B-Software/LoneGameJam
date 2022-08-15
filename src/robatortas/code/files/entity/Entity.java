@@ -41,8 +41,8 @@ public class Entity {
 		y+=ya;
 	}
 	
-	protected int xp = 8;
-	protected int yp = 8;
+	protected int xp = 6;
+	protected int yp = 6;
 	public boolean intersects(int x0, int y0, int x1, int y1) {
 		return (x + xp < x0 || y + yp < y0 || x - xp > x1 || y - yp > y1);
 	}

@@ -110,6 +110,7 @@ public class Level {
 		entitiesInTiles[x+y*width].remove(e);
 	}
 	
+	// Just creates a hitbox, a literal hitbox, and the input values just determine the size of it.
 	public List<Entity> getEntity(int x0, int y0, int x1, int y1) {
 		List<Entity> result = new ArrayList<Entity>();
 		
@@ -118,8 +119,8 @@ public class Level {
 		int xt1 = (x1 >> 3) + 1;
 		int yt1 = (y1 >> 3) + 1;
 		
-		for(int y = yt0; y < yt1; y++) {
-			for(int x = xt0; x < xt1; x++) {
+		for(int y = yt0; y <= yt1; y++) {
+			for(int x = xt0; x <= xt1; x++) {
 				if(x < 0 || x >= width || y < 0 || y >= height) continue;
 				List<Entity> entities = entitiesInTiles[x + y * this.width];
 				for(int i = 0; i < entities.size(); i++) {

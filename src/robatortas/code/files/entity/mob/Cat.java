@@ -37,22 +37,22 @@ public class Cat extends Mob {
 			move(xa,ya);
 		}
 		
-		if(!onAir || collision(xa, 0)) {
-			die();
-		}else {
-			List<Entity> entities = level.getEntity(x+5, y, x, y);
-			for(int i = 0; i < entities.size(); i++) {
-				Entity e = entities.get(i);
-				if(!(e instanceof Player) && e!=null) {
-					e.remove();
-					die();
-				}
+		Entity e = null;
+		
+		List<Entity> entities = level.getEntity(x+4, y-8, x+4, y-3);
+		for(int i = 0; i < entities.size(); i++) {
+			e = entities.get(i);
+			if(!(e instanceof Player) && e != this) {
+				e.die = true;
 			}
+		}
+		
+		if(!onAir || collision(xa, 0) && e != null) {
+			die();
 		}
 	}
 	
 	public void render(Screen screen) {
-		
 		sprite = cat;
 		screen.renderMob(x, y, this, 0);
 	}

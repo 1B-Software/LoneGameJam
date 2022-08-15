@@ -6,6 +6,7 @@ import robatortas.code.files.entity.Gore;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
 import robatortas.code.files.graphics.SpriteSheet;
+import robatortas.code.files.sound.Sound;
 
 public class Player extends Mob {
 
@@ -95,7 +96,11 @@ public class Player extends Mob {
 		
 		if(input.space) {
 			if(!shoot) {
-				if(armed) shoot();
+				if(armed) {
+					Sound.shoot.setVol(-5);
+					Sound.shoot.play();
+					shoot();
+				}
 				shoot = true;
 			}
 		} else shoot = false;
