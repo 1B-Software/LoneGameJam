@@ -94,7 +94,7 @@ public class Player extends Mob {
 		if(input.space) {
 			if(!shoot) {
 				if(armed) {
-					Sound.shoot.setVol(-5);
+					Sound.shoot.setVolume(-5);
 					Sound.shoot.play();
 					shoot();
 				}
@@ -188,6 +188,9 @@ public class Player extends Mob {
 	private Gore gore;
 	public void die() {
 		super.die();
+		
+		Sound.playerDeath.play();
+		
 		for(int i = 0; i < 25; i++) {
 			level.add(gore = new Gore(x, y, null));
 			gore.setColor(0xffFFB57C);

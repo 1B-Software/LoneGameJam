@@ -25,7 +25,7 @@ public class StoneTile extends Tile {
 					
 					color = r << 16 | g << 8 | b;
 					
-					if(color == 808080) color - shade;
+//					if(color == 808080) color - shade;
 					
 					sprite.pixels[i] = color;
 				}

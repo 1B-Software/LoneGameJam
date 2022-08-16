@@ -8,6 +8,7 @@ import robatortas.code.files.entity.Gore;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
 import robatortas.code.files.graphics.SpriteSheet;
+import robatortas.code.files.sound.Sound;
 
 public class Cat extends Mob {
 	
@@ -59,6 +60,8 @@ public class Cat extends Mob {
 	
 	private Gore gore;
 	public void die() {
+		Sound.impact.setVolume(-8);
+		Sound.impact.play();
 		for(int i = 0; i < 25; i++) {
 			level.add(gore = new Gore(x, y, new Sprite(8, 0, 9, SpriteSheet.mainSheet)));
 			gore.dropBlood = true;

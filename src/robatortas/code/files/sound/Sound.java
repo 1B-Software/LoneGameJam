@@ -1,72 +1,95 @@
 package robatortas.code.files.sound;
 
-import java.io.IOException;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Sound {
 	
 	public static Sound shoot = new Sound("/shoot.wav");
+	public static Sound impact = new Sound("/impact.wav");
+	public static Sound playerDeath = new Sound("/playerDeath.wav");
 	
 	
-	private String path;
-	private Clip clip;
+	public Clip clip = null;
+	private FloatControl gainControl;
 	
 	private Sound(String path) {
-		this.path = path;
-		
-		InputStream src = Sound.class.getResourceAsStream(path);
-		
 		try {
-			AudioInputStream out = AudioSystem.getAudioInputStream(src);
-			this.clip = AudioSystem.getClip();
-			clip.open(out);
-		} catch (LineUnavailableException e) {
+			// Decoding Audio process
+			InputStream audioSrc = Sound.class.getResourceAsStream(path);
+			// Buffers encoded audio source from path to the system memory
+			InputStream bufferedin = new BufferedInputStream(audioSrc);
+			// Makes the inputStream the buffered audio
+			AudioInputStream audioStream1 = AudioSystem.getAudioInputStream(bufferedin);
+			// Gets the format of the audioStream1
+			AudioFormat baseFormat = audioStream1.getFormat();
+			// Decodes the baseFormat to a PCM_SIGNED encoding.
+			AudioFormat decodeFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
+														baseFormat.getSampleRate(),
+														16,
+														baseFormat.getChannels(),
+														baseFormat.getChannels() * 2,
+														baseFormat.getSampleRate(),
+														false);
+			
+			//Decoded Audio (output)
+			AudioInputStream decodedAudioStream = AudioSystem.getAudioInputStream(decodeFormat, audioStream1);
+			
+			clip = AudioSystem.getClip();
+			//Opens Decoded Audio
+			clip.open(decodedAudioStream);
+			
+			//Gain Control for Audio
+			gainControl = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+		} catch (Throwable e) {
 			e.printStackTrace();
-			System.err.println("\n\nLineUnavailableException on the Sound class");
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-			System.err.println("\n\nUnsoported audio file at: " + path);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.err.println("\nUnable to load sound located at: " + path);
 		}
 	}
 	
 	public void play() {
-		if(clip == null) return;
-		
-		stop();
-		clip.setFramePosition(0);
-		
-		while(!clip.isRunning()) {
-			clip.start();
-		}
+		if(clip == null)
+			return;
+			
+			stop();
+			clip.setFramePosition(0);
+			
+			/*Fixes not playing bug.
+			 * Forces it to play if not running when called
+			 * Keeps trying to play it until played.
+			 */
+			while(!clip.isRunning()) {
+				clip.start();
+			}
 	}
 	
 	public void stop() {
 		if(clip.isRunning()) {
 			clip.stop();
-			clip.flush();
 		}
 	}
 	
-	public void setVol(float value) {
-//		if(clip.isRunning()) {
-			FloatControl vol = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			vol.setValue(value);
-//		}
+	public void close() {
+		stop();
+		clip.drain();
+		clip.close();
 	}
 	
 	public void loop() {
-		while(clip.isRunning()) {
-			clip.loop(0);
-		}
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
+		play();
+	}
+	
+	public void setVolume(float value) {
+		gainControl.setValue(value);
+	}
+	
+	public boolean isRunning() {
+		return clip.isRunning();
 	}
 }
