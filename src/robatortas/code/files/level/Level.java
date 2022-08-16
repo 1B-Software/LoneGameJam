@@ -60,21 +60,29 @@ public class Level {
 		
 	}
 	
+	Mouse mouse;
 	public void render(int xScroll, int yScroll, Screen screen) {
 		screen.setOffset(xScroll, yScroll);
 		int x0 = xScroll >> 3;
 		int y0 = yScroll >> 3;
-		int x1 = (xScroll+screen.width-6) >> 3;
-		int y1 = (yScroll+screen.height-13) >> 3;
+		int x1 = (xScroll+screen.width-3) >> 3;
+		int y1 = (yScroll+screen.height-11) >> 3;
 		
 		for(int y = y0; y <= y1; y++) {
 			for(int x = x0; x <= x1; x++) {
 				if (x < 0 || y < 0 || x >= width || y >= height) continue;
-				getTile(x, y).render(x, y, screen);
+				if(getTile(x, y) == Tile.backStoneTile) getTile(x, y).render(x, y, screen);
 			}
 		}
 		
 		for(int i = 0; i < entities.size(); i++) if(entities.get(i) instanceof Blood) entities.get(i).render(screen);
+		
+		for(int y = y0; y <= y1; y++) {
+			for(int x = x0; x <= x1; x++) {
+				if (x < 0 || y < 0 || x >= width || y >= height) continue;
+				if(getTile(x, y) != Tile.backStoneTile) getTile(x, y).render(x, y, screen);
+			}
+		}
 		
 		for(int i = 0; i < entities.size(); i++) {
 			if(!(entities.get(i) instanceof Blood))entities.get(i).render(screen);
@@ -110,6 +118,30 @@ public class Level {
 		entitiesInTiles[x+y*width].remove(e);
 	}
 	
+	public List<Entity> getEntityFromRadius(Entity e, int radius) {
+		List<Entity> result = new ArrayList<Entity>();
+		
+		int ex = e.x;
+		int ey = e.y;
+		
+		for(int i = 0; i < entities.size(); i++) {
+			Entity entity = entities.get(i);
+			int x = entity.x;
+			int y = entity.y;
+			
+			// Distance x & y
+			int dx = Math.abs(x-ex);
+			int dy = Math.abs(y-ey);
+			
+			double dist = Math.sqrt(dx*dx) + Math.sqrt(dy*dy);
+			if(dist <= radius) {
+				result.add(entity);
+			}
+		}
+		
+		return result;
+	}
+	
 	// Just creates a hitbox, a literal hitbox, and the input values just determine the size of it.
 	public List<Entity> getEntity(int x0, int y0, int x1, int y1) {
 		List<Entity> result = new ArrayList<Entity>();
@@ -139,6 +171,13 @@ public class Level {
 		if(tiles[x + y * width] == Sprite.col_wood) return Tile.woodTile;
 		if(tiles[x + y * width] == Sprite.col_spike) return Tile.spikeTile;
 		if(tiles[x + y * width] == Sprite.col_spikeBlood) return Tile.spikeBloodTile;
+		if(tiles[x + y * width] == Sprite.col_backStone || tiles[x + y * width] == 0xffff0000) return Tile.backStoneTile;
 		return Tile.voidTile;
+	}
+	
+	public void getEntityWithLevel(int x, int y) {
+//		if(x < 0 || y < 0 || x >= width || y >= height) return new Mouse(x,y);
+		if(tiles[x + y * width] == 0xffff0000) new Mouse(x,y);
+//		return new Entity();
 	}
 }

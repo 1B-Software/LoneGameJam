@@ -2,16 +2,21 @@ package robatortas.code.files;
 
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Display {
 	
 	public JFrame frame;
 	
+	private ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("logo.png"));
+	
 	public Display(int w, int h, String title, JFrame frame, Game game) {
 		this.frame = frame;
 		
 		Dimension size = new Dimension(w, h);
+		
+		frame.setIconImage(icon.getImage());
 		
 		frame.setTitle(title);
 		

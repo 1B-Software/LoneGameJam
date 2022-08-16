@@ -35,19 +35,16 @@ public class Mob extends Entity {
 		
 		if(xa>0)dir=1;
 		if(xa<0)dir=3;
-//		
-//		if(!collision(xa, 0)) {
-//			this.x += xa;
-//		}
-		for (int x = 0; x < Math.abs(xa); x++) {
-		if (!collision(abs(xa), ya)) {
-			this.x += abs(xa);
-		}
-		}
-
+		
 		for (int y = 0; y < Math.abs(ya); y++) {
-			if (!collision(xa, abs(ya))) {
+			if (!collision(0, abs(ya))) {
 				this.y += abs(ya);
+			}
+		}
+		
+		for (int x = 0; x < Math.abs(xa); x++) {
+			if (!collision(abs(xa), 0)) {
+				this.x += abs(xa);
 			}
 		}
 	}
@@ -66,7 +63,7 @@ public class Mob extends Entity {
 			level.insertTile(x+6 >> 3, y+16 >> 3, Sprite.col_spikeBlood);
 		}
 		
-		gravity();
+		if(!(this instanceof Cheese)) gravity();
 	}
 	
 	protected boolean onAir = false;
@@ -95,8 +92,8 @@ public class Mob extends Entity {
 	public boolean collision(double xa, double ya) {
 		boolean solid = false;
 		for(int c = 0; c < 4; c++) {
-			int xt = (((int)x + (int)xa) + (c % 2 + 1) * 5) / 8;
-			double yt = ((y + ya) + (c / 2 + 2) * 2) / 8;
+			int xt = (((int)x + (int)xa) + (c % 2 + 1) * 5) >> 3; //int xt = (((int)x + (int)xa) + (c % 2 + 1) * 5) >> 3;
+			double yt = ((y + ya) + (c / 2 + 5) * 1) / 8;
 			int yy = (int) Math.ceil(yt);
 			if (c / 2 == 0) yy = (int) Math.floor(yt);
 			if (level.getTile(xt, yy).solid(level, xt, yy, this)) solid = true;

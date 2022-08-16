@@ -36,8 +36,10 @@ public class Sprite {
 	public static Sprite wood = new Sprite(8, 1, 8, SpriteSheet.mainSheet);
 	public static Sprite spike = new Sprite(8, 2, 8, SpriteSheet.mainSheet);
 	public static Sprite spikeBlood = new Sprite(8, 3, 8, SpriteSheet.mainSheet);
+	public static Sprite backStone = new Sprite(8, 4, 8, SpriteSheet.mainSheet);
 	
 	public static int col_stone = 0xff808080;
+	public static int col_backStone = 0xff000000;
 	public static int col_spike = 0xffffffff;
 	public static int col_spikeBlood = 0xffFFAAAA;
 	public static int col_wood = 0xff7F4F2F;

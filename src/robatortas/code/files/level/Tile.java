@@ -3,6 +3,7 @@ package robatortas.code.files.level;
 import robatortas.code.files.entity.mob.Mob;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
+import robatortas.code.files.level.tile.BackStoneTile;
 import robatortas.code.files.level.tile.SpikeBloodTile;
 import robatortas.code.files.level.tile.SpikeTile;
 import robatortas.code.files.level.tile.StoneTile;
@@ -22,6 +23,7 @@ public class Tile {
 	public static Tile woodTile = new WoodTile(Sprite.wood, 2);
 	public static Tile spikeTile = new SpikeTile(Sprite.spike, 3);
 	public static Tile spikeBloodTile = new SpikeBloodTile(Sprite.spikeBlood, 4);
+	public static Tile backStoneTile = new BackStoneTile(Sprite.backStone, 4);
 	
 	public Tile(Sprite sprite, int id) {
 		this.sprite = sprite;

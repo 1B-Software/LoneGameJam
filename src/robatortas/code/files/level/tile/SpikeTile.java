@@ -13,7 +13,7 @@ public class SpikeTile extends Tile {
 	}
 	
 	public void render(int x, int y, Screen screen) {
-		screen.renderSprite(x << 3, y << 3, Sprite.stone, 0);
+		screen.renderSprite(x << 3, y << 3, Sprite.backStone, 0);
 		screen.renderTile(x << 3, y << 3, this);
 	}
 	

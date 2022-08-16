@@ -1,7 +1,9 @@
 package robatortas.code.files.level.tile;
 
+import robatortas.code.files.entity.mob.Mob;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
+import robatortas.code.files.level.Level;
 import robatortas.code.files.level.Tile;
 
 public class StoneTile extends Tile {
@@ -10,28 +12,11 @@ public class StoneTile extends Tile {
 		super(sprite, id);
 	}
 	
-	private int color, diff = 10;
-	private int r, g, b;
-	
-	public void render(int x, int y, Screen screen) {
-		
-		for(int yy = 0; yy < sprite.size; yy++) {
-			for(int xx = 0; xx < sprite.size; xx++) {
-				
-				for(int i = 0; i < sprite.pixels.length; i++) {
-					r = (sprite.pixels[i] & 0xff0000) >> 16;
-					g = (sprite.pixels[i] & 0xff00) >> 8;
-					b = sprite.pixels[i] & 0xff;
-					
-					color = r << 16 | g << 8 | b;
-					
-//					if(color == 808080) color - shade;
-					
-					sprite.pixels[i] = color;
-				}
-				
-			}
-		}
+	public void render(int x, int y, Screen screen) {	
 		screen.renderTile(x << 3, y << 3, this);
+	}
+	
+	public boolean solid(Level level, int x, int y, Mob mob) {
+		return true;
 	}
 }

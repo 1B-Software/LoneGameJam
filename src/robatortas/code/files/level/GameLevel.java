@@ -35,7 +35,13 @@ public class GameLevel extends Level{
 			entitiesInTiles[i] = new ArrayList<Entity>();
 		}
 		
-		add(player = new Player(3 << 3, 4 << 3 , input = new InputManager()));
+		for(int y = 0; y < height; y++) {
+			for(int x = 0; x < width; x++) {
+				if(tiles[x + y * width] == 0xffff0000) add(mouse = new Mouse(x<<3,y<<3));
+			}
+		}
+		
+		add(player = new Player(15 << 3, 15 << 3 , input = new InputManager()));
 		add(new Mouse(6<<3, 0<<3));
 	}
 }
