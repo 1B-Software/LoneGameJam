@@ -39,6 +39,8 @@ public class Game extends Canvas implements Runnable {
 	
 	private InputManager input = Level.input;
 	
+	public static int xScroll, yScroll;
+	
 	public Game() {
 		level = Level.level;
 		
@@ -117,18 +119,25 @@ public class Game extends Canvas implements Runnable {
 		
 		screen.clear();
 		
-		int xScroll = (int)level.player.x - (width-32)/2;
-		int yScroll = (int)level.player.y - (height-32)/2;
+		xScroll = (int)level.player.x - (width-32)/2;
+		yScroll = (int)level.player.y - (height-32)/2;
 		
 		Graphics g = bs.getDrawGraphics();
 		
 		level.render(xScroll, yScroll, screen);
-//		screen.renderPixel(x, y);
-//		screen.renderSprite(x, y, Sprite.player);
+		
+		renderGUI(xScroll, yScroll);
 		
 		g.drawImage(image, 0, 0, width*scale, height*scale, null);
 		
 		g.dispose();
 		bs.show();
+	}
+	
+	public void renderGUI(int x, int y) {
+		screen.renderPixel(x+3, y+3, 13*8, 9, 0xff774A2C);
+		for(int i = 0; i < level.player.health; i++) {
+			screen.renderPixel((x+i*10)+5, y+5, 10, 5, 0xffff0000);
+		}
 	}
 }

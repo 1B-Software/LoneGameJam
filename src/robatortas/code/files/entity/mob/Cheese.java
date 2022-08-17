@@ -2,12 +2,14 @@ package robatortas.code.files.entity.mob;
 
 import java.util.List;
 
+import robatortas.code.files.Game;
 import robatortas.code.files.entity.Blood;
 import robatortas.code.files.entity.Entity;
 import robatortas.code.files.entity.Gore;
 import robatortas.code.files.graphics.Screen;
 import robatortas.code.files.graphics.Sprite;
 import robatortas.code.files.graphics.SpriteSheet;
+import robatortas.code.files.level.Tile;
 import robatortas.code.files.sound.Sound;
 
 public class Cheese extends Mob {
@@ -44,12 +46,17 @@ public class Cheese extends Mob {
 		for(int i = 0; i < entities.size(); i++) {
 			e = entities.get(i);
 			if(e instanceof Player && e != this) {
+				Sound.impact.setVolume(-8);
+				Sound.impact.play();
+				e.health--;
 				die();
 			}
 		}
 		
-		if(!onAir || collision(xa, ya)) {
-//			die();
+		if(collision(xa, ya)) {
+			Sound.wallHit.setVolume(-8);
+			Sound.wallHit.play();
+			die();
 		}
 	}
 	
@@ -58,9 +65,18 @@ public class Cheese extends Mob {
 		screen.renderMob(x, y, this, 0);
 	}
 	
+	private Gore gore;
 	public void die() {
-		Sound.impact.setVolume(-8);
-		Sound.impact.play();
+		for(int i = 0; i < 5; i++) {
+			level.add(gore = new Gore(x, y, null));
+			gore.setSize(1);
+			gore.setColor(0xffFFDD00);
+		}
+		for(int i = 0; i < 10; i++) {
+			level.add(gore = new Gore(x, y, null));
+			gore.setSize(1);
+			gore.setColor(0xffff0000);
+		}
 		super.die();
 	}
 	

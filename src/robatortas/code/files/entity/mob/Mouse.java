@@ -1,6 +1,5 @@
 package robatortas.code.files.entity.mob;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import robatortas.code.files.entity.Blood;
@@ -12,9 +11,11 @@ import robatortas.code.files.graphics.SpriteSheet;
 
 public class Mouse extends Mob {
 	
+//	private double x, y;
+	
 	public Mouse(int x, int y) {
-		this.x = x;
-		this.y = y;
+		super.x = x;
+		super.y =y ;
 	}
 	
 	public double xa, ya;
@@ -36,20 +37,48 @@ public class Mouse extends Mob {
 		
 		Entity player = null; 
 		
+		/*
+		 * Let me just reiterate through the sin cos and tan :/
+		 * 
+		 * sen = co/hip
+		 * cos = ca/hip
+		 * tan = co/ca
+		 * 
+		 * so to get the triangle angle we need to use tan!!
+		 */
+
+		double angle = 0;
+		double nx=0, ny=0;
 		if(tickTime % 60 == 0) {
-		List<Entity> e = level.getEntityFromRadius(this, 80);
+		List<Entity> e = level.getEntityFromRadius(this, 130);
 		for(int i = 0; i < e.size(); i++) {
 			player = e.get(i);
 			if(player instanceof Player) {
-				 level.add(cheese = new Cheese(x, y));
-				 if(cheese.x > player.x) cheese.xv = -1;
-				 else if(cheese.x < player.x) cheese.xv = 1;
-
-				 if(cheese.y > player.y) cheese.yv = -1;
-				 else if(cheese.y < player.y+50) cheese.yv = 1;
+				level.add(cheese = new Cheese((int)x, (int)y));
+				int ex = cheese.x;
+				int ey = cheese.y;
+				int x = player.x;
+				int y = player.y;
+				
+				// adj
+				int dx = x-ex;
+				// opp
+				int dy = y-ey;
+				
+				// IN RADIANS
+				angle = Math.atan2(dy, dx);
+				
+				nx = Math.cos(angle);
+				ny = Math.sin(angle);
+				
+				System.out.println(angle);
 			}
 		}
 	}
+		if(cheese!=null) {
+			cheese.x+=nx;
+			cheese.y+=ny;
+		}
 		
 		if(xa!=0||ya!=0) {
 			move(xa,ya);
@@ -61,7 +90,7 @@ public class Mouse extends Mob {
 	public void render(Screen screen) {
 		sprite = mouse;
 		
-		screen.renderMob(x, y, this, 0);
+		screen.renderMob((int)x, (int)y, this, 0);
 	}
 	
 	private Gore gore;
@@ -69,15 +98,15 @@ public class Mouse extends Mob {
 //		super.die();
 		if(die) {
 			for(int i = 0; i < 25; i++) {
-				level.add(gore = new Gore(x, y, null));
+				level.add(gore = new Gore((int)x, (int)y, null));
 				gore.setColor(0xff6B6B6B);
 				gore.dropBlood = true;
 			}
-			for(int i = 0; i < 500; i++) level.add(new Blood(x, y));
-			level.add(gore = new Gore(x, y, new Sprite(8, 4, 4, SpriteSheet.mainSheet)));
+			for(int i = 0; i < 500; i++) level.add(new Blood((int)x, (int)y));
+			level.add(gore = new Gore((int)x, (int)y, new Sprite(8, 4, 4, SpriteSheet.mainSheet)));
 			gore.dropBlood = false;
 			gore.setLife(120*2);
-			level.add(gore = new Gore(x, y, new Sprite(8, 5, 2, SpriteSheet.mainSheet)));
+			level.add(gore = new Gore((int)x, (int)y, new Sprite(8, 5, 2, SpriteSheet.mainSheet)));
 			gore.dropBlood = true;
 			gore.setLife(120*2);
 			this.remove();

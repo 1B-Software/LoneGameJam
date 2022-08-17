@@ -73,6 +73,11 @@ public class Player extends Mob {
 			}
 		}
 		
+		if(health <= 0) die();
+		if(health < 10 && health > 0) {
+			if(tickTime % 120*15 == 0) health++;
+		}
+		
 		if(xa != 0 || ya != 0) {
 			move(xa, ya);
 			walking = true;
@@ -187,8 +192,7 @@ public class Player extends Mob {
 
 	private Gore gore;
 	public void die() {
-		super.die();
-		
+		health = 0;
 		Sound.playerDeath.play();
 		
 		for(int i = 0; i < 25; i++) {
@@ -203,6 +207,8 @@ public class Player extends Mob {
 		level.add(gore = new Gore(x, y, new Sprite(8, 5, 2, SpriteSheet.mainSheet)));
 		gore.dropBlood = true;
 		gore.setLife(120*2);
+		
+		super.die();
 	}
 	
 	public static Sprite player = new Sprite(16, 1, 0, SpriteSheet.mainSheet);

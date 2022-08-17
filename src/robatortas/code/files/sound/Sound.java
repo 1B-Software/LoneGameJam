@@ -14,6 +14,7 @@ public class Sound {
 	public static Sound shoot = new Sound("/shoot.wav");
 	public static Sound impact = new Sound("/impact.wav");
 	public static Sound playerDeath = new Sound("/playerDeath.wav");
+	public static Sound wallHit = new Sound("/wallHit.wav");
 	
 	
 	public Clip clip = null;

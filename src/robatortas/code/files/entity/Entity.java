@@ -10,6 +10,8 @@ public class Entity {
 	protected Level level;
 	public Sprite sprite;
 	
+	public int health = 10;
+	
 	public boolean die = false;
 	
 	public boolean removed;

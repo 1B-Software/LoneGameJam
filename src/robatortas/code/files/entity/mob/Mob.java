@@ -9,7 +9,6 @@ import robatortas.code.files.level.Tile;
 
 public class Mob extends Entity {
 	
-	protected int health = 10;
 	protected int attackTime = 10;
 	
 	protected int dir = 0;
@@ -93,12 +92,13 @@ public class Mob extends Entity {
 		boolean solid = false;
 		for(int c = 0; c < 4; c++) {
 			int xt = (((int)x + (int)xa) + (c % 2 + 1) * 5) >> 3; //int xt = (((int)x + (int)xa) + (c % 2 + 1) * 5) >> 3;
-			double yt = ((y + ya) + (c / 2 + 5) * 1) / 8;
+			double yt = 0;
+			if(!(this instanceof Cheese)) yt = ((y + ya) + (c / 2 + 5) * 1) / 8;
+			else yt = ((y + ya) + (c / 2 ) * 1) / 8;
 			int yy = (int) Math.ceil(yt);
 			if (c / 2 == 0) yy = (int) Math.floor(yt);
 			if (level.getTile(xt, yy).solid(level, xt, yy, this)) solid = true;
 		}
 		return solid;
 	}
-	
 }
