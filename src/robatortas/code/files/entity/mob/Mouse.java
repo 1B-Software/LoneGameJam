@@ -11,11 +11,9 @@ import robatortas.code.files.graphics.SpriteSheet;
 
 public class Mouse extends Mob {
 	
-//	private double x, y;
-	
 	public Mouse(int x, int y) {
 		super.x = x;
-		super.y =y ;
+		super.y = y;
 	}
 	
 	public double xa, ya;
@@ -52,15 +50,15 @@ public class Mouse extends Mob {
 			player = e.get(i);
 			if(player instanceof Player) {
 				level.add(cheese = new Cheese((int)x, (int)y));
-				int ex = cheese.x;
-				int ey = cheese.y;
-				int x = player.x;
-				int y = player.y;
+				double ex = cheese.x;
+				double ey = cheese.y;
+				double x = player.x;
+				double y = player.y;
 				
 				// adj
-				int dx = x-ex;
+				double dx = x-ex;
 				// opp
-				int dy = y-ey;
+				double dy = y-ey;
 				
 				// IN RADIANS
 				angle = Math.atan2(dy, dx);
@@ -68,13 +66,13 @@ public class Mouse extends Mob {
 				nx = Math.cos(angle);
 				ny = Math.sin(angle);
 				
-				System.out.println(angle);
+//				cheese.die();
 			}
 		}
 	}
 		if(cheese!=null) {
-			cheese.x+=nx;
-			cheese.y+=ny;
+			cheese.xv+=nx;
+			cheese.yv+=ny;
 		}
 		
 		if(xa!=0||ya!=0) {

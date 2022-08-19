@@ -8,9 +8,8 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import robatortas.code.files.entity.mob.Player;
+import robatortas.code.files.graphics.Fonts;
 import robatortas.code.files.graphics.Screen;
-import robatortas.code.files.level.GameLevel;
 import robatortas.code.files.level.Level;
 
 public class Game extends Canvas implements Runnable {
@@ -127,6 +126,8 @@ public class Game extends Canvas implements Runnable {
 		level.render(xScroll, yScroll, screen);
 		
 		renderGUI(xScroll, yScroll);
+		Fonts font = new Fonts(screen);
+		Fonts.write("HOWDY", xScroll, yScroll, 16, screen);
 		
 		g.drawImage(image, 0, 0, width*scale, height*scale, null);
 		
