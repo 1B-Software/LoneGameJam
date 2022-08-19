@@ -14,9 +14,15 @@ import robatortas.code.files.sound.Sound;
 
 public class Cheese extends Mob {
 	
+	public double x, y;
+	
 	public Cheese(int x, int y) {
-		this.x = x;
-		this.y = y;
+		super.x = x;
+		super.y = y;
+		
+		this.x = super.x;
+		this.y = super.y;
+		
 		sprite = cheese;
 	}
 	
@@ -42,7 +48,7 @@ public class Cheese extends Mob {
 		
 		Entity e = null;
 		
-		List<Entity> entities = level.getEntity(x, y, x-12, y-3);
+		List<Entity> entities = level.getEntity(super.x, super.y, super.x-12, super.y-3);
 		for(int i = 0; i < entities.size(); i++) {
 			e = entities.get(i);
 			if(e instanceof Player && e != this) {
@@ -62,18 +68,18 @@ public class Cheese extends Mob {
 	
 	public void render(Screen screen) {
 		sprite = cheese;
-		screen.renderMob(x, y, this, 0);
+		screen.renderMob(super.x, super.y, this, 0);
 	}
 	
 	private Gore gore;
 	public void die() {
 		for(int i = 0; i < 5; i++) {
-			level.add(gore = new Gore(x, y, null));
+			level.add(gore = new Gore(super.x, super.y, null));
 			gore.setSize(1);
 			gore.setColor(0xffFFDD00);
 		}
 		for(int i = 0; i < 10; i++) {
-			level.add(gore = new Gore(x, y, null));
+			level.add(gore = new Gore(super.x, super.y, null));
 			gore.setSize(1);
 			gore.setColor(0xffff0000);
 		}

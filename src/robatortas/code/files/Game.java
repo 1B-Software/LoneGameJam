@@ -8,9 +8,8 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import robatortas.code.files.entity.mob.Player;
+import robatortas.code.files.graphics.Fonts;
 import robatortas.code.files.graphics.Screen;
-import robatortas.code.files.level.GameLevel;
 import robatortas.code.files.level.Level;
 
 public class Game extends Canvas implements Runnable {
@@ -48,6 +47,8 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(width, height);
 		display = new Display(width*scale, height*scale, title, frame, this);
 		frame = new JFrame();
+		
+		new Fonts(screen).write("hey", 1, 1, 16);
 		
 		addKeyListener(input);
 	}

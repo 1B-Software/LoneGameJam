@@ -5,6 +5,7 @@ public class Sprite {
 	public int[] pixels;
 	public int x, y;
 	public int size;
+	public int width, height;
 	public SpriteSheet sheet;
 	
 	private int color;
@@ -12,6 +13,8 @@ public class Sprite {
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.sheet = sheet;
 		this.size = size;
+		this.width = size;
+		this.height = size;
 		this.x = x*size;
 		this.y = y*size;
 		
@@ -45,9 +48,9 @@ public class Sprite {
 	public static int col_wood = 0xff7F4F2F;
 	
 	public void load() {
-		for(int y = 0; y < size; y++) {
-			for(int x = 0; x < size; x++) {
-				pixels[x+y*size] = sheet.pixels[(x+this.x) + (y+this.y) * sheet.size];
+		for(int y = 0; y < height; y++) {
+			for(int x = 0; x < width; x++) {
+				pixels[x+y*width] = sheet.pixels[(x+this.x) + (y+this.y) * sheet.width];
 			}
 		}
 	}

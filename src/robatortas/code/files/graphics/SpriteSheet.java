@@ -10,13 +10,24 @@ public class SpriteSheet {
 	public int[] pixels;
 	public String path;
 	public int size;
+	public int width, height;
 	
 	public static SpriteSheet mainSheet = new SpriteSheet("/mainSheet.png", 128);
 	
 	public SpriteSheet(String path, int size) {
 		this.size = size;
+		this.width = size;
+		this.height = size;
 		this.path = path;
 		pixels = new int[size*size];
+		load();
+	}
+	
+	public SpriteSheet(String path, int w, int h) {
+		this.width = w;
+		this.height = h;
+		this.size = -1;
+		pixels = new int[w*h];
 		load();
 	}
 	
