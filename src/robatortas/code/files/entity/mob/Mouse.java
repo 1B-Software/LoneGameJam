@@ -30,10 +30,7 @@ public class Mouse extends Mob {
 		else animate = 0;
 		
 		// JUMP!
-		if(tickTime % (random.nextInt(30)+40) == 0) {
-			gravity -= 2 + xa * 0.4;
-			
-		}
+		if(tickTime % (random.nextInt(30)+40) == 0) gravity -= 2 + xa * 0.4;
 		
 		Entity player = null; 
 		
