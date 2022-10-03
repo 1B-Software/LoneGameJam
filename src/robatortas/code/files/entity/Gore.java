@@ -45,7 +45,7 @@ public class Gore extends Entity{
 		
 		if(dropBlood) {
 			if(tickTime % 2 == 0) {
-				level.add(blood = new Blood(x+4, y+2));
+				level.add(blood = new Blood((int)x+4, (int)y+2));
 				blood.physics.calculations.x1 = random.nextGaussian() * 0.02;
 				blood.physics.calculations.z1 = 1.0;
 				
@@ -66,9 +66,9 @@ public class Gore extends Entity{
 	}
 	
 	public void render(Screen screen) {
-		if(sprite!=null)screen.renderSprite(x, (y + 13) - (int) physics.calculations.z0, sprite, 0);
-		else if(size != 0) screen.renderPixel(x, (y + 13) - (int) physics.calculations.z0, size, size, color);
-		else screen.renderPixel(x, (y + 13) - (int) physics.calculations.z0, 3, 2, color);
+		if(sprite!=null)screen.renderSprite((int)x, ((int)y + 13) - (int) physics.calculations.z0, sprite, 0);
+		else if(size != 0) screen.renderPixel((int)x, ((int)y + 13) - (int) physics.calculations.z0, size, size, color);
+		else screen.renderPixel((int)x, ((int)y + 13) - (int) physics.calculations.z0, 3, 2, color);
 	}
 	
 	public static Sprite goreSprite = new Sprite(8, 0, 9, SpriteSheet.mainSheet);

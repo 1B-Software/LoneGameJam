@@ -35,7 +35,7 @@ public class Mouse extends Mob {
 		/*
 		 * Let me just reiterate through the sin cos and tan :/
 		 * 
-		 * sen = co/hip
+		 * sin = co/hip
 		 * cos = ca/hip
 		 * tan = co/ca
 		 * 
@@ -44,6 +44,7 @@ public class Mouse extends Mob {
 
 		double angle = 0;
 		double nx=0, ny=0;
+		double speed=0;
 		if(tickTime % 60 == 0) {
 		List<Entity> e = level.getEntityFromRadius(this, 130);
 		for(int i = 0; i < e.size(); i++) {
@@ -61,19 +62,18 @@ public class Mouse extends Mob {
 				double dy = y-ey;
 				
 				// IN RADIANS
-				angle = Math.atan2(dy, dx);
+				angle = Math.atan2(dy, dx); 
+//				double dist = Math.sqrt(dx*dx) + Math.sqrt(dy*dy);
 				
-				nx = Math.cos(angle);
-				ny = Math.sin(angle);
+				speed = Math.sqrt(xv*xv + yv*yv);
 				
+				cheese.xv = Math.cos(angle);
+				cheese.yv = Math.sin(angle);
+				System.out.println(Math.toDegrees(nx));
 //				cheese.die();
 			}
 		}
 	}
-		if(cheese!=null) {
-			cheese.xv+=nx;
-			cheese.yv+=ny;
-		}
 		
 		if(xa!=0||ya!=0) {
 			move(xa,ya);

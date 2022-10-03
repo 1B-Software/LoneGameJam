@@ -57,9 +57,9 @@ public class Mob extends Entity {
 	public void tick() {
 		tickTime++;
 		
-		if(level.getTile(x+6 >> 3, y+16 >> 3) == Tile.spikeTile) {
+		if(level.getTile((int)x+6 >> 3, (int)y+16 >> 3) == Tile.spikeTile) {
 			die();
-			level.insertTile(x+6 >> 3, y+16 >> 3, Sprite.col_spikeBlood);
+			level.insertTile((int)x+6 >> 3, (int)y+16 >> 3, Sprite.col_spikeBlood);
 		}
 		
 		if(!(this instanceof Cheese)) gravity();

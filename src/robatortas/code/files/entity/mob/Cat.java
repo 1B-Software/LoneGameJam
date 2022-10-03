@@ -40,7 +40,7 @@ public class Cat extends Mob {
 		
 		Entity e = null;
 		
-		List<Entity> entities = level.getEntity(x+4, y-8, x+4, y-3);
+		List<Entity> entities = level.getEntity((int)x+4, (int)y-8, (int)x+4, (int)y-3);
 		for(int i = 0; i < entities.size(); i++) {
 			e = entities.get(i);
 			if(!(e instanceof Player) && e != this) {
@@ -55,7 +55,7 @@ public class Cat extends Mob {
 	
 	public void render(Screen screen) {
 		sprite = cat;
-		screen.renderMob(x, y, this, 0);
+		screen.renderMob((int)x, (int)y, this, 0);
 	}
 	
 	private Gore gore;
@@ -63,14 +63,14 @@ public class Cat extends Mob {
 		Sound.impact.setVolume(-8);
 		Sound.impact.play();
 		for(int i = 0; i < 25; i++) {
-			level.add(gore = new Gore(x, y, new Sprite(8, 0, 9, SpriteSheet.mainSheet)));
+			level.add(gore = new Gore((int)x, (int)y, new Sprite(8, 0, 9, SpriteSheet.mainSheet)));
 			gore.dropBlood = true;
 		}
-		for(int i = 0; i < 500; i++) level.add(new Blood(x, y));
-		level.add(gore = new Gore(x, y, new Sprite(8, 4, 2, SpriteSheet.mainSheet)));
+		for(int i = 0; i < 500; i++) level.add(new Blood((int)x, (int)y));
+		level.add(gore = new Gore((int)x, (int)y, new Sprite(8, 4, 2, SpriteSheet.mainSheet)));
 		gore.dropBlood = false;
 		gore.setLife(120*2);
-		level.add(gore = new Gore(x, y, new Sprite(8, 5, 2, SpriteSheet.mainSheet)));
+		level.add(gore = new Gore((int)x, (int)y, new Sprite(8, 5, 2, SpriteSheet.mainSheet)));
 		gore.dropBlood = true;
 		gore.setLife(120*2);
 		this.remove();

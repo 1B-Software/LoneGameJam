@@ -126,7 +126,6 @@ public class Game extends Canvas implements Runnable {
 		level.render(xScroll, yScroll, screen);
 		
 		renderGUI(xScroll, yScroll);
-		Fonts font = new Fonts(screen);
 		Fonts.write("HOWDY", xScroll, yScroll, 16, screen);
 		
 		g.drawImage(image, 0, 0, width*scale, height*scale, null);

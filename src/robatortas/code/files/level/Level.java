@@ -121,13 +121,13 @@ public class Level {
 	public List<Entity> getEntityFromRadius(Entity e, int radius) {
 		List<Entity> result = new ArrayList<Entity>();
 		
-		int ex = e.x;
-		int ey = e.y;
+		int ex = (int)e.x;
+		int ey = (int)e.y;
 		
 		for(int i = 0; i < entities.size(); i++) {
 			Entity entity = entities.get(i);
-			int x = entity.x;
-			int y = entity.y;
+			int x = (int)entity.x;
+			int y = (int)entity.y;
 			
 			// Distance x & y
 			int dx = Math.abs(x-ex);

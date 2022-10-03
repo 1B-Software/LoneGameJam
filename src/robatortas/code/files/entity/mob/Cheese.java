@@ -48,7 +48,7 @@ public class Cheese extends Mob {
 		
 		Entity e = null;
 		
-		List<Entity> entities = level.getEntity(super.x, super.y, super.x-12, super.y-3);
+		List<Entity> entities = level.getEntity((int)super.x, (int)super.y, (int)super.x-12, (int)super.y-3);
 		for(int i = 0; i < entities.size(); i++) {
 			e = entities.get(i);
 			if(e instanceof Player && e != this) {
@@ -68,18 +68,18 @@ public class Cheese extends Mob {
 	
 	public void render(Screen screen) {
 		sprite = cheese;
-		screen.renderMob(super.x, super.y, this, 0);
+		screen.renderMob((int)super.x, (int)super.y, this, 0);
 	}
 	
 	private Gore gore;
 	public void die() {
 		for(int i = 0; i < 5; i++) {
-			level.add(gore = new Gore(super.x, super.y, null));
+			level.add(gore = new Gore((int)super.x, (int)super.y, null));
 			gore.setSize(1);
 			gore.setColor(0xffFFDD00);
 		}
 		for(int i = 0; i < 10; i++) {
-			level.add(gore = new Gore(super.x, super.y, null));
+			level.add(gore = new Gore((int)super.x, (int)super.y, null));
 			gore.setSize(1);
 			gore.setColor(0xffff0000);
 		}

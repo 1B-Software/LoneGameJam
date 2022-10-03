@@ -110,7 +110,7 @@ public class Player extends Mob {
 	
 	private Cat cat;
 	public void shoot() {
-		level.add(cat = new Cat(x+shootingDirX, y));
+		level.add(cat = new Cat((int)x+shootingDirX, (int)y));
 		if(input.up) {
 			cat.gravity -= 4 + xa * 0.5;
 		} else if(input.down) {
@@ -187,7 +187,7 @@ public class Player extends Mob {
 			}
 		}
 		
-		screen.renderMob(x, y, this, flip);
+		screen.renderMob((int)x, (int)y, this, flip);
 	}
 
 	private Gore gore;
@@ -196,15 +196,15 @@ public class Player extends Mob {
 		Sound.playerDeath.play();
 		
 		for(int i = 0; i < 25; i++) {
-			level.add(gore = new Gore(x, y, null));
+			level.add(gore = new Gore((int)x, (int)y, null));
 			gore.setColor(0xffFFB57C);
 			gore.dropBlood = true;
 		}
-		for(int i = 0; i < 500; i++) level.add(new Blood(x, y));
-		level.add(gore = new Gore(x, y, new Sprite(8, 4, 3, SpriteSheet.mainSheet)));
+		for(int i = 0; i < 500; i++) level.add(new Blood((int)x, (int)y));
+		level.add(gore = new Gore((int)x, (int)y, new Sprite(8, 4, 3, SpriteSheet.mainSheet)));
 		gore.dropBlood = false;
 		gore.setLife(120*2);
-		level.add(gore = new Gore(x, y, new Sprite(8, 5, 2, SpriteSheet.mainSheet)));
+		level.add(gore = new Gore((int)x, (int)y, new Sprite(8, 5, 2, SpriteSheet.mainSheet)));
 		gore.dropBlood = true;
 		gore.setLife(120*2);
 		
